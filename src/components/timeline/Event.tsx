@@ -35,10 +35,10 @@ export const Event = ({
         className={`${side === 'left' ? 'timeline-start' : 'timeline-end'} mb-8 md:mb-0 ${side === 'left' ? 'md:text-end' : ''} `}
       >
         <time className="font-mono italic">{time}</time>
-        <div className="text-lg font-black">{title}</div>
+        <div className="text-xl md:text-2xl font-black ">{title}</div>
         {children}
       </div>
-      <hr />
+      <hr className="bg-base-content" />
     </li>
   )
 }

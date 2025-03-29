@@ -4,7 +4,7 @@ import { Timeline } from '~/components/timeline/Timeline'
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-4 md:gap-12">
+    <main className="flex flex-col ">
       <section className="hero bg-base-200  pt-16 md:pt-32 pb-8 md:pb-20">
         <div className="hero-content text-center">
           <div className="max-w-2xl">
@@ -14,6 +14,10 @@ export default function Home() {
             <h1 className="text-6xl md:text-8xl font-bold mb-8">
               Daniel John Keefer
             </h1>
+            <p className="text-3xl md:text-5xl mt-8 mb-12 font-display leading-relaxed">
+              I turn problems <span className="font-emoji">🤯</span> into magic{' '}
+              <span className="font-emoji">🌟</span> using computers.
+            </p>
             <p className="text-xl md:text-3xl flex flex-col gap-4 items-center">
               <span className="flex gap-4 justify-start items-center">
                 <span className="font-emoji">🧙‍♂️</span>Professional Web Wizard
@@ -29,7 +33,7 @@ export default function Home() {
         </div>
       </section>
       {/* ----------------------- */}
-      <section className="w-full px-8 md:px-20 lg:px-40 py-8">
+      <section className="w-full px-8 md:px-20 lg:px-40 py-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           <span className="font-emoji">🧔</span> A little about me
         </h2>
@@ -47,14 +51,14 @@ export default function Home() {
         </p>
       </section>
       {/* ----------------------- */}
-      <section className="w-full px-8 md:px-20 lg:px-40 py-8">
+      <section className="w-full px-8 md:px-20 lg:px-40 py-16 bg-base-300">
         <h2 className="text-4xl font-bold mb-4">
           <span className="font-emoji">🚀</span> The Timeline
         </h2>
         <Timeline>
           <Event
             marker="🎓"
-            color="secondary"
+            color="primary"
             side="left"
             time="Feb 2021"
             title="Finish Studying"
@@ -66,7 +70,7 @@ export default function Home() {
           </Event>
           <Event
             marker="🍊"
-            color="primary"
+            color="secondary"
             side="right"
             time="Mar 2021"
             title="My First Gig"
@@ -146,8 +150,8 @@ export default function Home() {
         </Timeline>
       </section>
 
-      <section className="hero bg-base-200  pt-16 md:pt-32 pb-8 md:pb-20">
-        <div className="hero-content flex-col lg:flex-row gap-16 ">
+      <section className="hero bg-base-200  pt-16  pb-8 md:pb-20">
+        <div className="hero-content flex-col lg:flex-row gap-8 lg:gap-16 ">
           <Image
             alt="Daniel John Keefer"
             src="/hero.jpg"
@@ -156,11 +160,15 @@ export default function Home() {
             style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
             className="max-w-sm rounded-lg shadow-2xl"
           />
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-8">
+          <div className="max-w-2xl text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-4">
               Daniel John Keefer
             </h1>
-            <p className="text-xl md:text-2xl flex flex-col gap-4 items-start">
+            <p className="text-xl md:text-4xl mt-2 mb-8 font-display leading-relaxed">
+              I turn problems <span className="font-emoji">🤯</span> into magic{' '}
+              <span className="font-emoji">🌟</span> using computers.
+            </p>
+            <p className="text-xl md:text-2xl flex flex-col gap-4 items-center">
               <span className="flex gap-4 justify-start items-center">
                 <span className="font-emoji">🧙‍♂️</span>Professional Web Wizard
               </span>

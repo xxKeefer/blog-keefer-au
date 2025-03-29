@@ -103,9 +103,8 @@ export default function Home() {
           >
             My wife broke her leg! And we have stairs in our house. She and my
             daughters had to move into the in laws home while I took care of the
-            pets at home as we have stairs. It was five long months of missing
-            my family and I am very grateful to my in laws for looking after
-            them during that time.
+            pets at home. It was five long months of missing my family and I am
+            very grateful to my in laws for looking after them during that time.
           </Event>
           <Event
             marker="🚦"
@@ -119,7 +118,7 @@ export default function Home() {
             into doing some enterprise software with a company called Transmax.
             It&apos;s the biggest engineering team I have ever worked with and I
             have learned a lot already about enterprise software, working across
-            teams and more robust architectures I&apos;m having a blast
+            teams and more robust architectures. I&apos;m having a blast
             participating in communities of practice and making motorways that
             much smarter.
           </Event>

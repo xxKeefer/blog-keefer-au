@@ -16,7 +16,7 @@ export default function Home() {
   const { active } = useActiveSection(sections)
   return (
     <SideNav sections={sections} active={active}>
-      <main className="flex flex-col">
+      <main className="flex flex-col scroll-smooth">
         <section
           id={sections[0].id}
           className="hero bg-base-200 pt-16 pb-8 md:pt-32 md:pb-20"

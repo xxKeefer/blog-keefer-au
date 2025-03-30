@@ -27,7 +27,7 @@ export const Event = ({
   return (
     <li>
       <div
-        className={`timeline-middle p-2 m-2 font-emoji text-xl ${colourMap[color]} rounded-full`}
+        className={`timeline-middle font-emoji m-2 p-2 text-xl ${colourMap[color]} rounded-full`}
       >
         {marker}
       </div>
@@ -35,7 +35,7 @@ export const Event = ({
         className={`${side === 'left' ? 'timeline-start' : 'timeline-end'} mb-8 md:mb-0 ${side === 'left' ? 'md:text-end' : ''} `}
       >
         <time className="font-mono italic">{time}</time>
-        <div className="text-xl md:text-2xl font-black ">{title}</div>
+        <div className="text-xl font-black md:text-2xl">{title}</div>
         {children}
       </div>
       <hr className="bg-base-content" />

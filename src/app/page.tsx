@@ -1,24 +1,22 @@
 'use client'
 import Image from 'next/image'
-import { type Section, useActiveSection } from '~/hooks/sections'
-import { SideNav } from '~/components/SideNav'
+import { SideNav, SideNavLink } from '~/components/side-nav'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
 
-const sections = [
-  { id: 'hi-there', title: 'Hello!' },
-  { id: 'about-me', title: 'A little about me' },
-  { id: 'timeline', title: 'The Timeline' },
-  { id: 'web-wizard', title: 'The Web Wizard' },
-] as const satisfies Section[]
+const links = [
+  { id: 'hi-there', label: 'Hello!' },
+  { id: 'about-me', label: 'A little about me' },
+  { id: 'timeline', label: 'The Timeline' },
+  { id: 'web-wizard', label: 'The Web Wizard' },
+] as const satisfies SideNavLink[]
 
 export default function Home() {
-  const { active } = useActiveSection(sections)
   return (
-    <SideNav sections={sections} active={active}>
+    <SideNav links={links}>
       <main className="flex flex-col justify-center scroll-smooth">
         <section
-          id={sections[0].id}
+          id={links[0].id}
           className="hero bg-base-200 pt-16 pb-8 md:pt-32 md:pb-20"
         >
           <div className="hero-content text-center">
@@ -51,12 +49,12 @@ export default function Home() {
         </section>
         {/* ----------------------- */}
         <section
-          id={sections[1].id}
+          id={links[1].id}
           className="w-full px-8 py-16 md:px-20 lg:px-40"
         >
           <div className="max-w-6xl place-self-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-              <span className="font-emoji">🧔</span> {sections[1].title}
+              <span className="font-emoji">🧔</span> {links[1].label}
             </h2>
             <p className="text-lg md:text-xl">
               I love tech. They say any sufficiently advanced tech is like magic
@@ -75,12 +73,12 @@ export default function Home() {
         </section>
         {/* ----------------------- */}
         <section
-          id={sections[2].id}
+          id={links[2].id}
           className="bg-base-300 w-full px-8 py-16 md:px-20 lg:px-40"
         >
           <div className="max-w-6xl place-self-center">
             <h2 className="mb-4 text-4xl font-bold">
-              <span className="font-emoji">🚀</span> {sections[2].title}
+              <span className="font-emoji">🚀</span> {links[2].label}
             </h2>
             <Timeline>
               <Event
@@ -180,7 +178,7 @@ export default function Home() {
         </section>
 
         <section
-          id={sections[3].id}
+          id={links[3].id}
           className="hero bg-base-200 pt-16 pb-8 md:pb-20"
         >
           <div className="hero-content flex-col gap-8 lg:flex-row lg:gap-16">

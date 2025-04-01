@@ -79,7 +79,7 @@ export const SideNav = ({ children, sections, active }: Props) => {
             </ul>
           </div>
         </aside>
-        <aside className="bg-secondary hidden w-full lg:block">
+        <aside className="bg-secondary hidden w-full max-w-[300px] lg:block">
           <div className="flex h-full w-full flex-col gap-8 p-4">
             <h2 className="text-secondary-content p-2 text-6xl font-black">
               DJK_
@@ -136,7 +136,7 @@ export const SideNav = ({ children, sections, active }: Props) => {
             </nav>
           </div>
         </aside>
-        <div className="max-w-full overflow-y-scroll pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)]">
+        <div className="max-w-full overflow-y-scroll pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)] xl:w-full">
           {children}
         </div>
         <div className="dock bg-secondary text-secondary-content sm:hidden">

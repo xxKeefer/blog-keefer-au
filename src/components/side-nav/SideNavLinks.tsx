@@ -63,7 +63,7 @@ export const SideNavLinks = ({ links, closeSideDrawer, dark }: Props) => {
             <Link
               onClick={() => closeSideDrawer?.()}
               href={`#${link.id}`}
-              className={`btn btn-block text-xl ${link.id === active ? `${darkActive} justify-center font-bold` : `btn-ghost ${darkText} justify-start`}`}
+              className={`btn btn-block text-xl ${link.id === active ? `${darkActive} justify-center font-bold` : `btn-ghost hover:text-base-content ${darkText} justify-start`}`}
             >
               <span className="flex items-center gap-2">
                 <ArrowFatLineRight size={24} weight="fill" />

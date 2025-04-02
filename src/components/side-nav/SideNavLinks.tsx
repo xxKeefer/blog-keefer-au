@@ -19,13 +19,29 @@ export const SideNavLinks = ({ links, closeSideDrawer, dark }: Props) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id)
-          }
-        })
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .map((entry) => ({
+            id: entry.target.id,
+            intersectionRatio: entry.intersectionRatio,
+            height: entry.boundingClientRect.height,
+          }))
+
+        if (visibleSections.length > 0) {
+          // Prioritize the section that is either:
+          // 1. The largest (if multiple are in view)
+          // 2. The one most visible
+          const activeSection = visibleSections.reduce((prev, curr) =>
+            curr.height > prev.height ||
+            curr.intersectionRatio > prev.intersectionRatio
+              ? curr
+              : prev
+          )
+
+          setActive(activeSection.id)
+        }
       },
-      { threshold: 0.5 }
+      { threshold: [0, 0.5], rootMargin: '-50% 0px -50% 0px' }
     )
 
     links
@@ -39,7 +55,7 @@ export const SideNavLinks = ({ links, closeSideDrawer, dark }: Props) => {
   }, [links])
 
   return (
-    <nav className="flex h-full flex-col gap-4">
+    <nav className="flex flex-col gap-4">
       <h3 className={`text-3xl font-bold ${darkText}`}>On this Page</h3>
       <ul className="flex flex-col gap-4">
         {links.map((link) => (
@@ -47,7 +63,7 @@ export const SideNavLinks = ({ links, closeSideDrawer, dark }: Props) => {
             <Link
               onClick={() => closeSideDrawer?.()}
               href={`#${link.id}`}
-              className={`btn text-xl ${link.id === active ? `${darkActive} justify-center font-bold` : `btn-ghost ${darkText} justify-start`}`}
+              className={`btn btn-block text-xl ${link.id === active ? `${darkActive} justify-center font-bold` : `btn-ghost ${darkText} justify-start`}`}
             >
               <span className="flex items-center gap-2">
                 <ArrowFatLineRight size={24} weight="fill" />

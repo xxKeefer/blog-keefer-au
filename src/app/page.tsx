@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { SideNav, SideNavLink } from '~/components/side-nav'
+import { SkillsSection } from '~/components/SkillsSection'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
 
@@ -15,48 +16,49 @@ export default function Home() {
   return (
     <SideNav links={links}>
       <main className="flex flex-col justify-center scroll-smooth">
-        <section
-          id={links[0].id}
-          className="hero bg-base-200 pt-16 pb-8 md:pt-32 md:pb-20"
-        >
-          <div className="hero-content text-center">
-            <div className="max-w-2xl">
-              <p className="mb-4 text-2xl font-bold md:text-4xl">
-                <span className="font-emoji">👋</span>Hello there! I&apos;m
-              </p>
-              <h1 className="mb-8 text-6xl font-bold md:text-8xl">
-                Daniel John Keefer
-              </h1>
-              <p className="font-display mt-8 mb-12 text-3xl leading-relaxed md:text-5xl">
-                I turn problems <span className="font-emoji">🤯</span> into
-                magic <span className="font-emoji">🌟</span> using computers.
-              </p>
-              <p className="flex flex-col items-center gap-4 text-xl md:text-3xl">
-                <span className="flex items-center justify-start gap-4">
-                  <span className="font-emoji">🧙‍♂️</span>Professional Web Wizard
-                </span>
-                <span className="flex items-center justify-start gap-4">
-                  <span className="font-emoji">💻</span>Enthusiastic Tech
-                  Utopian
-                </span>
-                <span className="flex items-center justify-start gap-4">
-                  <span className="font-emoji">✨</span>Husband, Father and
-                  Friend
-                </span>
-              </p>
+        <section id={links[0].id} className="bg-base-200 place-items-center">
+          <div className="hero max-w-2xl pt-16 pb-8 md:pt-32 md:pb-20">
+            <div className="hero-content text-center">
+              <div className="max-w-2xl">
+                <p className="mb-4 text-2xl font-bold md:text-4xl xl:text-6xl">
+                  <span className="font-emoji animate-hand-wave inline-block">
+                    👋
+                  </span>
+                  Hello there! I&apos;m
+                </p>
+                <h1 className="mb-8 text-6xl font-bold md:text-8xl">
+                  Daniel John Keefer
+                </h1>
+                <p className="font-display mt-8 mb-12 text-3xl leading-relaxed md:text-5xl">
+                  I turn problems <span className="font-emoji">🤯</span> into
+                  magic <span className="font-emoji">🌟</span> using computers.
+                </p>
+                <p className="flex flex-col items-center gap-4 text-xl md:text-3xl">
+                  <span className="flex items-center justify-start gap-4">
+                    <span className="font-emoji">🧙‍♂️</span>Professional Web
+                    Wizard
+                  </span>
+                  <span className="flex items-center justify-start gap-4">
+                    <span className="font-emoji">💻</span>Enthusiastic Tech
+                    Utopian
+                  </span>
+                  <span className="flex items-center justify-start gap-4">
+                    <span className="font-emoji">✨</span>Husband, Father and
+                    Friend
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </section>
         {/* ----------------------- */}
-        <section
-          id={links[1].id}
-          className="w-full px-8 py-16 md:px-20 lg:px-40"
-        >
-          <div className="max-w-6xl place-self-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+
+        <section id={links[1].id} className="bg-base-100 place-items-center">
+          <div className="max-w-4xl px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:text-6xl">
               <span className="font-emoji">🧔</span> {links[1].label}
             </h2>
-            <p className="text-lg md:text-xl">
+            <p className="text-lg leading-relaxed md:text-2xl">
               I love tech. They say any sufficiently advanced tech is like magic
               to the uninitiated, and who doesn&apos;t want to be a Wizard? I
               love to use React and Typescript to turn problems into magic on
@@ -72,12 +74,11 @@ export default function Home() {
           </div>
         </section>
         {/* ----------------------- */}
-        <section
-          id={links[2].id}
-          className="bg-base-300 w-full px-8 py-16 md:px-20 lg:px-40"
-        >
-          <div className="max-w-6xl place-self-center">
-            <h2 className="mb-4 text-4xl font-bold">
+        <SkillsSection />
+        {/* ----------------------- */}
+        <section id={links[2].id} className="bg-base-300 place-items-center">
+          <div className="max-w-4xl px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:mb-12 xl:text-6xl">
               <span className="font-emoji">🚀</span> {links[2].label}
             </h2>
             <Timeline>
@@ -181,7 +182,7 @@ export default function Home() {
           id={links[3].id}
           className="hero bg-base-200 pt-16 pb-8 md:pb-20"
         >
-          <div className="hero-content flex-col gap-8 lg:flex-row lg:gap-16">
+          <div className="hero-content flex-col gap-8 lg:gap-16 xl:flex-row">
             <Image
               alt="Daniel John Keefer"
               src="/hero.jpg"
@@ -194,7 +195,7 @@ export default function Home() {
               <h1 className="mb-4 text-5xl font-bold md:text-6xl">
                 Daniel John Keefer
               </h1>
-              <p className="font-display mt-2 mb-8 text-xl leading-relaxed md:text-4xl">
+              <p className="font-display mt-2 mb-8 text-xl leading-relaxed md:text-4xl xl:text-6xl">
                 I turn problems <span className="font-emoji">🤯</span> into
                 magic <span className="font-emoji">🌟</span> using computers.
               </p>

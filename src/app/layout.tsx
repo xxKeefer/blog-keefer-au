@@ -8,22 +8,22 @@ export const metadata: Metadata = {
 }
 
 const monaSans = localFont({
-  src: './fonts/Mona-Sans.woff2',
+  src: './_fonts/Mona-Sans.woff2',
   variable: '--font-mona-sans',
   fallback: ['sans-serif'],
 })
 const jetBrainsMono = localFont({
-  src: './fonts/JetBrainsMono-VariableFont_wght.ttf',
+  src: './_fonts/JetBrainsMono-VariableFont_wght.ttf',
   variable: '--font-jetbrains',
   fallback: ['sans-serif'],
 })
 const shantellSans = localFont({
-  src: './fonts/ShantellSans-VariableFont_BNCE,INFM,SPAC,wght.ttf',
+  src: './_fonts/ShantellSans-VariableFont_BNCE,INFM,SPAC,wght.ttf',
   variable: '--font-shantell-sans',
   fallback: ['sans-serif'],
 })
 const notoColorEmoji = localFont({
-  src: './fonts/NotoColorEmoji-Regular.ttf',
+  src: './_fonts/NotoColorEmoji-Regular.ttf',
   variable: '--font-noto-emoji',
   weight: '100 900',
   style: 'normal',

@@ -1,9 +1,12 @@
 'use client'
 import Image from 'next/image'
 import { SideNav, SideNavLink } from '~/components/side-nav'
-import { SkillsSection } from '~/components/SkillsSection'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
+import dynamic from 'next/dynamic'
+const SkillsSection = dynamic(() => import('~/components/SkillsSection'), {
+  ssr: false,
+})
 
 const links = [
   { id: 'hi-there', label: 'Hello!' },
@@ -52,7 +55,6 @@ export default function Home() {
           </div>
         </section>
         {/* ----------------------- */}
-
         <section id={links[1].id} className="bg-base-100 place-items-center">
           <div className="max-w-4xl px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:text-6xl">

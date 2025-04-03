@@ -1,4 +1,5 @@
 'use client'
+
 import React from 'react'
 import { Scroller } from '~/components/Scroller'
 import Python from 'devicons-react/icons/PythonOriginal'
@@ -15,7 +16,7 @@ import Github from 'devicons-react/icons/GithubOriginal'
 import Gitlab from 'devicons-react/icons/GitlabOriginal'
 import { useDarkMode } from 'usehooks-ts'
 
-export const SkillsSection = () => {
+export default function SkillsSection() {
   const { isDarkMode } = useDarkMode()
   const bg = isDarkMode ? 'bg-base-content' : 'bg-white'
   return (

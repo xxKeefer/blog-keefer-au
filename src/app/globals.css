@@ -76,40 +76,11 @@
   --noise: 0;
 }
 
-@font-face {
-  font-family: "Mona Sans";
-  src: url("/fonts/Mona-Sans.woff2") format("woff2 supports variations"),
-    url("/fonts/Mona-Sans.woff2") format("woff2-variations");
-  font-weight: 200 900;
-  font-stretch: 75% 125%;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype-variations");
-  font-weight: 200 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Shantell Sans";
-  src: url("/fonts/ShantellSans-VariableFont_BNCE,INFM,SPAC,wght.ttf") format("truetype-variations");
-  font-weight: 200 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Noto Color Emoji";
-  src: url("/fonts/NotoColorEmoji-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
 @theme inline {
-  --font-sans: "Mona Sans", "sans-serif";
-  --font-mono: "JetBrains Mono", "sans-serif";
-  --font-display: "Shantell Sans", "sans-serif";
-  --font-emoji: "Noto Color Emoji", "sans-serif";
+  --font-sans: var(--font-mona-sans), "sans-serif";
+  --font-mono: var(--font-jetbrains), "sans-serif";
+  --font-display: var(--font-shantell-sans), "sans-serif";
+  --font-emoji: var(--font-noto-emoji), "sans-serif";
 
   --animate-hand-wave: hand-wave 15s ease-in-out infinite;
 

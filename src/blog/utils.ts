@@ -1,3 +1,8 @@
+import { readdir } from 'fs/promises'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+import { SideNavLink } from '~/components/side-nav'
 export type Meta = {
   slug: string
   title: string
@@ -6,13 +11,9 @@ export type Meta = {
   next?: string
   prev?: string
   related?: string[]
+  anchors?: SideNavLink[]
 }
-
 type Raw = Omit<Meta, 'slug'>
-
-import { readdir } from 'fs/promises'
-import path from 'path'
-import { fileURLToPath } from 'url'
 
 export async function getAllPostMeta(): Promise<Meta[]> {
   // Resolve absolute path to the blog directory

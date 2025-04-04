@@ -1,9 +1,10 @@
 'use client'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
+
 import { SideNav, SideNavLink } from '~/components/side-nav'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
-import dynamic from 'next/dynamic'
 const SkillsSection = dynamic(() => import('~/components/SkillsSection'), {
   ssr: false,
 })

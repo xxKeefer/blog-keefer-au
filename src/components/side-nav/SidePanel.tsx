@@ -1,4 +1,5 @@
 import { Butterfly, GithubLogo, LinkedinLogo } from '@phosphor-icons/react'
+
 import { SideNavLink, SideNavLinks } from './SideNavLinks'
 
 type Props = {

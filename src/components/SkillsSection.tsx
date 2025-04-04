@@ -1,20 +1,21 @@
 'use client'
 
-import React from 'react'
-import { Scroller } from '~/components/Scroller'
-import Python from 'devicons-react/icons/PythonOriginal'
-import Vite from 'devicons-react/icons/VitejsOriginal'
-import Vitest from 'devicons-react/icons/VitestOriginal'
-import ReactIcon from 'devicons-react/icons/ReactOriginal'
-import Typescript from 'devicons-react/icons/TypescriptOriginal'
-import Jest from 'devicons-react/icons/JestPlain'
-import Nextjs from 'devicons-react/icons/NextjsOriginal'
-import ReactRouter from 'devicons-react/icons/ReactrouterOriginal'
-import Tailwind from 'devicons-react/icons/TailwindcssOriginal'
 import Eslint from 'devicons-react/icons/EslintOriginal'
 import Github from 'devicons-react/icons/GithubOriginal'
 import Gitlab from 'devicons-react/icons/GitlabOriginal'
+import Jest from 'devicons-react/icons/JestPlain'
+import Nextjs from 'devicons-react/icons/NextjsOriginal'
+import Python from 'devicons-react/icons/PythonOriginal'
+import ReactIcon from 'devicons-react/icons/ReactOriginal'
+import ReactRouter from 'devicons-react/icons/ReactrouterOriginal'
+import Tailwind from 'devicons-react/icons/TailwindcssOriginal'
+import Typescript from 'devicons-react/icons/TypescriptOriginal'
+import Vite from 'devicons-react/icons/VitejsOriginal'
+import Vitest from 'devicons-react/icons/VitestOriginal'
+import React from 'react'
 import { useDarkMode } from 'usehooks-ts'
+
+import { Scroller } from '~/components/Scroller'
 
 export default function SkillsSection() {
   const { isDarkMode } = useDarkMode()

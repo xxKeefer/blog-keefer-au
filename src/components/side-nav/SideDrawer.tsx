@@ -3,6 +3,7 @@ import {
   GithubLogo,
   LinkedinLogo,
 } from '@phosphor-icons/react/dist/ssr'
+
 import { SideNavLink, SideNavLinks } from './SideNavLinks'
 type SideDrawerProps = {
   links: SideNavLink[]

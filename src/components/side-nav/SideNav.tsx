@@ -1,11 +1,11 @@
 'use client'
 import React, { ReactNode, useState } from 'react'
 
-import { SideDrawer } from './SideDrawer'
 import { MobileDock } from './MobileDock'
-import { SidePanel } from './SidePanel'
 import { SideBar } from './SideBar'
+import { SideDrawer } from './SideDrawer'
 import { SideNavLink } from './SideNavLinks'
+import { SidePanel } from './SidePanel'
 type Props = {
   children: ReactNode
   links: SideNavLink[]

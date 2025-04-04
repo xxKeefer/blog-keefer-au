@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { getAllPostMeta } from '~/blog/utils'
 
 export default async function Page() {

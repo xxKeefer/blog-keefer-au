@@ -1,10 +1,9 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @plugin "daisyui" {
   exclude: rootscrollgutter;
 }
-
-@custom-variant dark (&:where([data-theme=keefer-dark], [data-theme=keefer-dark] *));
 
 @plugin "daisyui/theme" {
   name: "keefer";

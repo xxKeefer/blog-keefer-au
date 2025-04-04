@@ -1,0 +1,184 @@
+export const meta = {
+  title:"Writing Tests",
+  tags: ["jest", "testing", "typescript"],
+  lastUpdated: "2025-04-03"
+};
+
+## Effective Unit Tests
+- test pure functions, if you have to mock a lot of things it's probably time to make a integration test with testing library something.
+- use `test.each` to test a lot of case repetitiously ([test.each docs](https://jestjs.io/docs/api#testeachtablename-fn-timeout))
+
+## `test.each` anatomy
+
+Here is the typescript boiler plate:
+
+```ts
+ test.each<{ // this generic is refered to as the CaseObj
+    case: string; // label the case with notes or what this run is enforcing
+    input: Parameters<typeof exampleFunction>;
+    output: ReturnType<typeof exampleFunction>;
+  }>([
+    {
+      // labelling with a case number makes it easy to grep for the failed test
+      case: "case #1: example", 
+      input: [...inputs], // this is the varaible your function takes in order
+      output: true, // ever the test should expect the output to be
+    },
+    {
+      case: " case #2: not example",
+      input: [...differentInputs],
+      output: false,
+    },
+    // ... this could have as many cases as you like
+    // the test name below can use printf statements to also give more context
+  ])("verify that exampleFunction fn:\n $case", ({ input, output }) => {
+    expect(exampleFunction(...input)).toEqual(output);
+  });
+});
+```
+
+### Using $syntax to make informative test names
+I found Jest's docs to be a little lacking when it came to describing how use it's formatting stuff to generate unique test names, to be brief the is only two things worth using `$#` to get the index of the case in the `CaseObj[]` and the `$variable` syntax to get properties off the `CaseObj`.
+
+```ts
+test.each([
+  {
+    input: [a:"one", b:2, c:[1,2,3]],
+    output: true,
+  },
+])("case #$# [exampleFn fn]: returns $output \n\t\t with $input.0 and $input.1 and $input.2", ({ input, output }) => {
+    expect(exampleFunction(...input)).toEqual(output);
+  });
+});
+
+/**
+during the test in the console the test will appear something like:
+
+case #0 [exampleFn fn]: returns true
+        with "one" and 2 and [1, 2, 3]
+*/
+```
+
+
+## Example with React and Testing Library
+The prerequisite is that all the testing libs are installed via your package manager, i.e:
+```sh
+npm i -D @testing-library/jest-dom @testing-library/react jest
+```
+
+This example is sort of trivial and if you wanted to test for user flows the assertion objects could get much more complicated
+```tsx
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+
+type ExampleProps = {
+  label: string;
+};
+
+const Example = ({ label }: ExampleProps) => {
+  return <button>{label}</button>;
+};
+
+describe("<Example/>", () => {
+  test.each([
+    {
+      props: { label: "Click Me" },
+      assertions: [
+        // note that we are making this function so they can be lazily evaluated
+        () =>
+          expect(
+            screen.getByRole("button", { name: /click me/i }),
+          ).toBeInTheDocument(),
+        // ()=> ...as many asertions as you like
+      ],
+    },
+  ])(
+    "on render <Example/> with $props complies with assertions",
+    ({ props, assertions }) => {
+      render(<Example {...props} />);
+      assertions.forEach((assertion) => assertion());
+    },
+  );
+});
+
+```
+
+### A more complicated example with React and Testing Library
+The following is based on some test i wrote recently with name that would be able to be identify specific IP redacted. This example avoid the use of an assertion array which is quite limited in scope, and just provides the test Id of the element it expects to be on screen instead. This approach is pretty flexible and you could make the `CaseObj` whatever shape it need to be to test all your assertions.
+
+```tsx
+const EXPECTED_ICON = {
+  "fail-safe": "icon-far-shield-check",
+  "ok-disabled": "ok-disabled-dash",
+  failed: "icon-fas-hexagon-xmark",
+  fault: "icon-fas-triangle-exclamation",
+  unknown: "icon-fas-square-question",
+} as const satisfies Record<WidjetStatus , string>;
+
+describe("<WidjetStatusCell/>", () => {
+  test.each<{
+    gizmos: WidjetStatus[];
+    assertions:{
+	    iconTestId: string;
+	    // ... as many as you like
+    }
+  }>([
+    {
+      gizmos: [
+        { name: "test", type: "Zoop Counter", state: "Ok" },
+        {
+          name: "test",
+          type: "Wibble Analyzer",
+          state: "Ok",
+          failSafe: true,
+        },
+      ],
+      assertions:{
+	      iconTestId: EXPECTED_ICON["fail-safe"],
+	      // ... as many as you like
+      }
+    },
+    {
+      gizmos: [
+        { name: "test", type: "Zoop Counter", state: "Ok" },
+        {
+          name: "test",
+          type: "Wibble Analyzer",
+          state: "Disabled",
+          failSafe: true,
+        },
+      ],
+      assertions:{
+	      iconTestId: EXPECTED_ICON["fail-safe"],
+      },
+    },
+    {
+      gizmos: [
+        { name: "test", type: "Zoop Counter", state: "Ok" },
+        {
+          name: "test",
+          type: "Wibble Analyzer",
+          state: "Failed",
+          failSafe: true,
+        },
+      ],
+      assertions:{
+	      iconTestId: EXPECTED_ICON["fail-safe"],
+	    },
+    },
+	 //... rest of the test cases
+  ])(
+    'component renders "$iconTestId" \n\t\twith $gizmos.0 \n\t\tand $gizmos.1',
+    ({ gizmos, assertions }) => {
+      render(
+        <ThemeProvider>
+          <WidjetStatusCell gizmos={gizmos} />
+        </ThemeProvider>,
+      );
+
+      expect(screen.getByTestId(assertions.iconTestId)).toBeInTheDocument();
+      // ... as many as you like
+      // expect(screen.getByRole(assertions.cell.role,{name: assertions.cell.name})).toBeEmptyDOMElement()
+    },
+  );
+```

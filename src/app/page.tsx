@@ -55,12 +55,15 @@ export default function Home() {
           </div>
         </section>
         {/* ----------------------- */}
-        <section id={links[1].id} className="bg-base-100 place-items-center">
-          <div className="max-w-4xl px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:text-6xl">
+        <section
+          id={links[1].id}
+          className="bg-base-100 w-full place-items-center"
+        >
+          <div className="xl:prose-2xl md:prose-xl prose px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
+            <h2>
               <span className="font-emoji">🧔</span> {links[1].label}
             </h2>
-            <p className="text-lg leading-relaxed md:text-2xl">
+            <p>
               I love tech. They say any sufficiently advanced tech is like magic
               to the uninitiated, and who doesn&apos;t want to be a Wizard? I
               love to use React and Typescript to turn problems into magic on
@@ -79,7 +82,7 @@ export default function Home() {
         <SkillsSection />
         {/* ----------------------- */}
         <section id={links[2].id} className="bg-base-300 place-items-center">
-          <div className="max-w-4xl px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
+          <div className="xl:prose-2xl md:prose-xl prose px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:mb-12 xl:text-6xl">
               <span className="font-emoji">🚀</span> {links[2].label}
             </h2>

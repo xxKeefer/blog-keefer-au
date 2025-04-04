@@ -1,3 +1,5 @@
+import { getAllPostMeta } from '~/blog/utils'
+
 export default async function Page({
   params,
 }: {
@@ -6,11 +8,16 @@ export default async function Page({
   const { slug } = await params
   const { default: Post } = await import(`~/blog/${slug}.mdx`)
 
-  return <Post />
+  return (
+    <main className="prose prose-sm sm:prose-base md:prose-lg lg:prose-2xl max-w-(--breakpoint-lg) p-4 sm:p-8 md:px-24 md:py-16 lg:mx-auto">
+      <Post />
+    </main>
+  )
 }
 
-export function generateStaticParams() {
-  return [{ slug: 'on-writing-tests' }]
+export async function generateStaticParams() {
+  const posts = await getAllPostMeta()
+  return posts.map(({ slug }) => ({ slug }))
 }
 
 export const dynamicParams = false

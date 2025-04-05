@@ -2,8 +2,11 @@
 @plugin "@tailwindcss/typography";
 
 @plugin "daisyui" {
+  /* themes: keefer --default, keefer-dark --prefersdark; */
   exclude: rootscrollgutter;
 }
+
+/* @custom-variant dark (&:where([data-theme=keefer-dark], [data-theme=keefer-dark] *)); */
 
 @plugin "daisyui/theme" {
   name: "keefer";
@@ -80,6 +83,8 @@
   --font-mono: var(--font-jetbrains), "sans-serif";
   --font-display: var(--font-shantell-sans), "sans-serif";
   --font-emoji: var(--font-noto-emoji), "sans-serif";
+
+  --breakpoint-2xs: 25rem;
 
   --animate-hand-wave: hand-wave 15s ease-in-out infinite;
 

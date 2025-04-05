@@ -21,6 +21,7 @@ export const SideNav = ({ children, links }: Props) => {
         className="drawer-toggle"
         checked={drawerOpen}
         readOnly
+        aria-label="Drawer Toggle"
       />
 
       <div className="drawer-content flex h-svh gap-0">

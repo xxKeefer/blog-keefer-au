@@ -13,7 +13,6 @@ export default async function Page({ params }: PageProps) {
   // generateStaticParams should ensure existence, hence !
   const blog = blogs.findBySlug(slug)!
   const { Content, meta } = blog
-  console.log({ meta })
   return (
     <BlogHeader meta={meta}>
       <article className="prose prose-sm sm:prose-base md:prose-lg lg:prose-2xl max-w-(--breakpoint-lg) p-4 sm:p-8 md:px-24 md:py-16 lg:mx-auto">

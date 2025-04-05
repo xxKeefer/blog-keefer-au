@@ -19,6 +19,7 @@ export const SidePanel = ({ links }: Props) => {
                 href="https://github.com/xxKeefer"
                 target="_blank"
                 className="btn btn-square btn-soft"
+                aria-label="Github"
               >
                 <GithubLogo size={24} weight="fill" />
               </a>
@@ -28,6 +29,7 @@ export const SidePanel = ({ links }: Props) => {
                 href="https://www.linkedin.com/in/xxkeefer/"
                 target="_blank"
                 className="btn btn-square btn-soft"
+                aria-label="LinkedIn"
               >
                 <LinkedinLogo size={28} weight="fill" />
               </a>
@@ -37,6 +39,7 @@ export const SidePanel = ({ links }: Props) => {
                 href="https://bsky.app/profile/xxkeefer.bsky.social"
                 target="_blank"
                 className="btn btn-square btn-soft"
+                aria-label="Bluesky"
               >
                 <Butterfly size={28} weight="fill" />
               </a>

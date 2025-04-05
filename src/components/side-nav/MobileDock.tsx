@@ -20,6 +20,7 @@ export const MobileDock = ({ drawerOpen, setDrawerOpen }: MobileDockProps) => {
           target="_blank"
           className="btn btn-square btn-soft tooltip tooltip-top"
           data-tip="Github"
+          aria-label="Github"
         >
           <GithubLogo size={24} weight="fill" />
         </a>
@@ -30,6 +31,7 @@ export const MobileDock = ({ drawerOpen, setDrawerOpen }: MobileDockProps) => {
           target="_blank"
           className="btn btn-square btn-soft tooltip tooltip-top"
           data-tip="LinkedIn"
+          aria-label="LinkedIn"
         >
           <LinkedinLogo size={28} weight="fill" />
         </a>
@@ -40,6 +42,7 @@ export const MobileDock = ({ drawerOpen, setDrawerOpen }: MobileDockProps) => {
           target="_blank"
           className="btn btn-square btn-soft tooltip tooltip-top"
           data-tip="Bluesky"
+          aria-label="Bluesky"
         >
           <Butterfly size={28} weight="fill" />
         </a>

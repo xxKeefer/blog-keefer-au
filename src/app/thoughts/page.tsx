@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-import { getAllPostMeta } from '~/blog/utils'
+import { Blogs } from '~/blog/utils'
 
 export default async function Page() {
-  const posts = await getAllPostMeta()
+  const blogs = await Blogs.init()
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -12,14 +12,14 @@ export default async function Page() {
           <h1 className="text-5xl font-bold">Hello there</h1>
           <p className="py-6">Here are my thoughts on:</p>
           <ul className="flex flex-col gap-4">
-            {posts.map((p) => {
+            {blogs.posts.map(({ meta }) => {
               return (
                 <Link
-                  key={p.slug}
+                  key={meta.slug}
                   className="link"
-                  href={`/thoughts/${p.slug}`}
+                  href={`/thoughts/${meta.slug}`}
                 >
-                  {p.title}
+                  {meta.title}
                 </Link>
               )
             })}

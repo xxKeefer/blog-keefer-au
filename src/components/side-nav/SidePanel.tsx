@@ -1,18 +1,18 @@
 import { Butterfly, GithubLogo, LinkedinLogo } from '@phosphor-icons/react'
 
-import { SideNavLink, SideNavLinks } from './SideNavLinks'
+import { SideNavLinks } from './SideNavLinks'
 
 type Props = {
-  links: SideNavLink[]
+  scrollRef: React.RefObject<HTMLDivElement | null>
 }
-export const SidePanel = ({ links }: Props) => {
+export const SidePanel = ({ scrollRef }: Props) => {
   return (
     <aside className="bg-secondary hidden w-full max-w-[300px] lg:block">
       <div className="flex h-full w-full flex-col gap-8 p-4">
         <h2 className="text-secondary-content p-2 text-6xl font-black">DJK_</h2>
 
         <div className="flex h-full flex-col gap-4">
-          <SideNavLinks links={links} dark />
+          <SideNavLinks scrollRef={scrollRef} surface="bg-secondary" />
           <ul className="mt-auto flex justify-around gap-4">
             <li className="tooltip" data-tip="Github">
               <a

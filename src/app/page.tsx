@@ -2,34 +2,31 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-import { SideNav, SideNavLink } from '~/components/side-nav'
+import { Heading } from '~/blog/Heading'
+import { SideNav } from '~/components/side-nav'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
 const SkillsSection = dynamic(() => import('~/components/SkillsSection'), {
   ssr: false,
 })
 
-const links = [
-  { id: 'hi-there', label: 'Hello!' },
-  { id: 'about-me', label: 'A little about me' },
-  { id: 'timeline', label: 'The Timeline' },
-  { id: 'web-wizard', label: 'The Web Wizard' },
-] as const satisfies SideNavLink[]
-
 export default function Home() {
   return (
-    <SideNav links={links}>
+    <SideNav>
       <main className="flex flex-col justify-center scroll-smooth">
-        <section id={links[0].id} className="bg-base-200 place-items-center">
+        <section className="bg-base-200 place-items-center">
           <div className="hero max-w-2xl pt-16 pb-8 md:pt-32 md:pb-20">
             <div className="hero-content text-center">
               <div className="max-w-2xl">
-                <p className="mb-4 text-2xl font-bold md:text-4xl xl:text-6xl">
+                <div className="mb-4 text-2xl font-bold md:text-4xl xl:text-6xl">
                   <span className="font-emoji animate-hand-wave inline-block">
                     👋
                   </span>
-                  Hello there! I&apos;m
-                </p>
+                  <Heading level="h2" className="inline">
+                    Hello there!
+                  </Heading>{' '}
+                  I&apos;m
+                </div>
                 <h1 className="mb-8 text-6xl font-bold md:text-8xl">
                   Daniel John Keefer
                 </h1>
@@ -56,14 +53,15 @@ export default function Home() {
           </div>
         </section>
         {/* ----------------------- */}
-        <section
-          id={links[1].id}
-          className="bg-base-100 w-full place-items-center"
-        >
+        <section className="bg-base-100 w-full place-items-center">
           <div className="xl:prose-2xl md:prose-xl prose px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
-            <h2>
-              <span className="font-emoji">🧔</span> {links[1].label}
-            </h2>
+            <span className="mb-4 flex gap-2 xl:mb-12">
+              <h2 className="font-emoji !my-0 inline">🧔</h2>
+              <Heading level="h2" className="!my-0 inline">
+                A little about me
+              </Heading>
+            </span>
+
             <p>
               I love tech. They say any sufficiently advanced tech is like magic
               to the uninitiated, and who doesn&apos;t want to be a Wizard? I
@@ -82,11 +80,14 @@ export default function Home() {
         {/* ----------------------- */}
         <SkillsSection />
         {/* ----------------------- */}
-        <section id={links[2].id} className="bg-base-300 place-items-center">
+        <section className="bg-base-300 place-items-center">
           <div className="px-8 py-8 sm:px-16 md:px-24 md:py-12 lg:px-32 lg:py-20 xl:max-w-7xl">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl xl:mb-12 xl:text-6xl">
-              <span className="font-emoji">🚀</span> {links[2].label}
-            </h2>
+            <span className="mb-4 flex gap-2 text-3xl font-bold md:text-4xl xl:mb-12 xl:text-6xl">
+              <h2 className="font-emoji inline">🚀</h2>{' '}
+              <Heading level="h2" className="inline">
+                The Timeline
+              </Heading>
+            </span>
             <Timeline>
               <Event
                 marker="🎓"
@@ -184,10 +185,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          id={links[3].id}
-          className="hero bg-base-200 pt-16 pb-8 md:pb-20"
-        >
+        <section className="hero bg-base-200 pt-16 pb-8 md:pb-20">
           <div className="hero-content flex-col gap-8 lg:gap-16 xl:flex-row">
             <Image
               alt="Daniel John Keefer"
@@ -198,9 +196,13 @@ export default function Home() {
               className="max-w-sm rounded-lg shadow-2xl"
             />
             <div className="max-w-2xl text-center">
-              <h1 className="mb-4 text-5xl font-bold md:text-6xl">
+              <Heading
+                level="h2"
+                data-link-name={'Problems into Magic'}
+                className="mb-4 text-5xl font-bold md:text-6xl"
+              >
                 Daniel John Keefer
-              </h1>
+              </Heading>
               <p className="font-display mt-2 mb-8 text-xl leading-relaxed md:text-4xl xl:text-6xl">
                 I turn problems <span className="font-emoji">🤯</span> into
                 magic <span className="font-emoji">🌟</span> using computers.

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Blogs } from '~/blog/utils'
+import { Blogs } from '~/blog/blogs'
 
 export default async function Page() {
   const blogs = await Blogs.init()

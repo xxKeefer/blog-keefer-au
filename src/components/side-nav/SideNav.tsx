@@ -1,18 +1,17 @@
 'use client'
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 
 import { MobileDock } from './MobileDock'
 import { SideBar } from './SideBar'
 import { SideDrawer } from './SideDrawer'
-import { SideNavLink } from './SideNavLinks'
 import { SidePanel } from './SidePanel'
 type Props = {
   children: ReactNode
-  links: SideNavLink[]
 }
 
-export const SideNav = ({ children, links }: Props) => {
+export const SideNav = ({ children }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
   return (
     <div className="drawer h-svh">
       <input
@@ -26,8 +25,11 @@ export const SideNav = ({ children, links }: Props) => {
 
       <div className="drawer-content flex h-svh gap-0">
         <SideBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-        <SidePanel links={links} />
-        <div className="max-w-full overflow-y-scroll pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)] xl:w-full">
+        <SidePanel scrollRef={scrollRef} />
+        <div
+          ref={scrollRef}
+          className="max-w-full overflow-y-scroll pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)] xl:w-full"
+        >
           {children}
         </div>
         <MobileDock drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
@@ -35,7 +37,7 @@ export const SideNav = ({ children, links }: Props) => {
       <SideDrawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        links={links}
+        scrollRef={scrollRef}
       />
     </div>
   )

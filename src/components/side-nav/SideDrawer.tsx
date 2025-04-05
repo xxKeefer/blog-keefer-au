@@ -4,15 +4,15 @@ import {
   LinkedinLogo,
 } from '@phosphor-icons/react/dist/ssr'
 
-import { SideNavLink, SideNavLinks } from './SideNavLinks'
+import { SideNavLinks } from './SideNavLinks'
 type SideDrawerProps = {
-  links: SideNavLink[]
+  scrollRef: React.RefObject<HTMLDivElement | null>
   drawerOpen: boolean
   setDrawerOpen: (open: boolean) => void
 }
 export const SideDrawer = ({
   drawerOpen,
-  links,
+  scrollRef,
   setDrawerOpen,
 }: SideDrawerProps) => {
   return (
@@ -30,7 +30,8 @@ export const SideDrawer = ({
 
           <div className="flex h-full flex-col gap-4">
             <SideNavLinks
-              links={links}
+              surface="bg-base-300"
+              scrollRef={scrollRef}
               closeSideDrawer={() => setDrawerOpen(!drawerOpen)}
             />
             <ul className="mt-auto flex justify-around gap-4">

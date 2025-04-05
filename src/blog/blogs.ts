@@ -6,6 +6,8 @@ import path from 'path'
 import { default as readingTime } from 'reading-time'
 import { fileURLToPath } from 'url'
 
+import { slugify } from './utils'
+
 const minimalMeta = type({
   'slug?': 'string',
   title: 'string',
@@ -119,7 +121,7 @@ export class Blogs {
   private static enrichMeta(min: MinimalMeta, Content: MDXContent): Blog {
     const meta: Meta = {
       ...min,
-      slug: min.slug ?? this.slugify(min.title),
+      slug: min.slug ?? slugify(min.title),
       author: min.author ?? this.default_author,
       canonicalUrl: `${this.canonical}/blog/${min.slug}`,
       seo: {
@@ -131,16 +133,6 @@ export class Blogs {
       },
     }
     return { Content, meta }
-  }
-
-  private static slugify(text: string): string {
-    return text
-      .normalize('NFKD') // Normalize accents
-      .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphen
-      .replace(/^-+|-+$/g, '') // Trim leading/trailing hyphens
   }
 
   public static toNextMetadata(blog: Meta): Metadata {

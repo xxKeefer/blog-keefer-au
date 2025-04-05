@@ -1,77 +1,65 @@
 'use client'
 
-import { ArrowFatLineRight } from '@phosphor-icons/react'
+// import { ArrowFatLineRight } from '@phosphor-icons/react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
-export type SideNavLink = { id: string; label: string }
+import { HeadingLevel } from '~/blog/Heading'
+import { useHeadings } from '~/hooks/useHeadings'
+
 type Props = {
-  links: SideNavLink[]
+  scrollRef: React.RefObject<HTMLDivElement | null>
   closeSideDrawer?: () => void
-  dark?: boolean
+  /** only these two for now add as needed */
+  surface: 'bg-base-300' | 'bg-secondary'
 }
-export const SideNavLinks = ({ links, closeSideDrawer, dark }: Props) => {
-  const [active, setActive] = useState<string>()
 
-  const darkText = dark ? 'text-secondary-content' : ''
-  const darkActive = dark ? 'btn-soft' : 'btn-neutral'
+const LevelStyleMap = new Map<HeadingLevel, string>([
+  ['h1', 'text-xl'],
+  ['h2', 'text-lg ml-4 '],
+  ['h3', 'text-md ml-8 '],
+  ['h4', 'text-sm ml-12 '],
+  ['h5', 'text-sm ml-16 '],
+  ['h6', 'text-xs ml-20 '],
+])
+const SurfaceStyleMap = new Map<Props['surface'], string>([
+  ['bg-base-300', 'text-base-content'],
+  ['bg-secondary', 'text-secondary-content'],
+])
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .map((entry) => ({
-            id: entry.target.id,
-            intersectionRatio: entry.intersectionRatio,
-            height: entry.boundingClientRect.height,
-          }))
-
-        if (visibleSections.length > 0) {
-          // Prioritize the section that is either:
-          // 1. The largest (if multiple are in view)
-          // 2. The one most visible
-          const activeSection = visibleSections.reduce((prev, curr) =>
-            curr.height > prev.height ||
-            curr.intersectionRatio > prev.intersectionRatio
-              ? curr
-              : prev
-          )
-
-          setActive(activeSection.id)
-        }
-      },
-      { threshold: [0, 0.5], rootMargin: '-50% 0px -50% 0px' }
-    )
-
-    links
-      .map(({ id }) => document.getElementById(id))
-      .filter(Boolean)
-      .forEach((el) => observer.observe(el!))
-
-    document.querySelectorAll('.section').forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [links])
+export const SideNavLinks = ({
+  scrollRef,
+  closeSideDrawer,
+  surface,
+}: Props) => {
+  const { headings, active } = useHeadings(scrollRef)
+  const textColor = SurfaceStyleMap.get(surface)
 
   return (
     <nav className="flex flex-col gap-4">
-      <h3 className={`text-3xl font-bold ${darkText}`}>On this Page</h3>
-      <ul className="flex flex-col gap-4">
-        {links.map((link) => (
-          <li key={link.id}>
-            <Link
-              onClick={() => closeSideDrawer?.()}
-              href={`#${link.id}`}
-              className={`btn btn-block text-xl ${link.id === active ? `${darkActive} justify-center font-bold` : `btn-ghost hover:text-base-content ${darkText} justify-start`}`}
+      <h3 className={`${textColor} text-3xl font-bold`}>On this Page</h3>
+      <ul className="flex w-full flex-col gap-2">
+        {headings?.map((link) => {
+          const levelStyle = LevelStyleMap.get(link.level)
+          const activeStyles =
+            link.id === active
+              ? 'font-bold px-2 -ml-8 border-l-8'
+              : 'justify-start hover:font-black hover:border-b-2'
+
+          return (
+            <li
+              key={link.id}
+              className={`${textColor} ${activeStyles} ${levelStyle} `}
             >
-              <span className="flex items-center gap-2">
-                <ArrowFatLineRight size={24} weight="fill" />
-                {link.label}
-              </span>
-            </Link>
-          </li>
-        ))}
+              <Link
+                onClick={() => closeSideDrawer?.()}
+                href={link.anchor}
+                className="![background-color:transparent]"
+              >
+                {link.overrideLabel ?? link.label}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

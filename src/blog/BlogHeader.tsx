@@ -7,7 +7,7 @@ import {
 import { format, minutesToSeconds } from 'date-fns'
 import React, { ReactNode } from 'react'
 
-import { Meta } from './utils'
+import { Meta } from './blogs'
 
 type Props = {
   meta: Meta
@@ -36,7 +36,7 @@ const BlogHeader = ({ meta, children }: Props) => {
             <h1 className="mb-8 text-5xl font-black tracking-wide md:text-7xl">
               {title}
             </h1>
-            <p className="font-display not-dark:bg-neutral not-dark:text-neutral-content mb-4 text-xl tracking-wider not-dark:rounded-2xl not-dark:px-4 not-dark:py-2 md:text-3xl">
+            <p className="!text-base-content font-display not-dark:bg-neutral not-dark:text-neutral-content mb-4 text-xl tracking-wider not-dark:rounded-2xl not-dark:px-4 not-dark:py-2 md:text-3xl">
               <span className="font-emoji pr-2">🧙‍♂️✨</span>
               {description}
             </p>

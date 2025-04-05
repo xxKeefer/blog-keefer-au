@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react'
+
+import { Heading } from '~/blog/Heading'
 // import { Dot } from "../Dot";
 
 type EventProps = {
@@ -35,9 +37,12 @@ export const Event = ({
         className={`${side === 'left' ? 'timeline-start' : 'timeline-end'} mb-8 md:mb-0 ${side === 'left' ? 'md:text-end' : ''} `}
       >
         <time className="font-mono italic xl:text-xl">{time}</time>
-        <div className="text-xl font-black tracking-wider md:pt-2 md:pb-4 md:text-2xl xl:text-4xl">
+        <Heading
+          level="h3"
+          className="text-xl font-black tracking-wider md:pt-2 md:pb-4 md:text-2xl xl:text-4xl"
+        >
           {title}
-        </div>
+        </Heading>
         <p className="leading-relaxed tracking-wide xl:text-xl">{children}</p>
       </div>
       <hr className="bg-base-content" />

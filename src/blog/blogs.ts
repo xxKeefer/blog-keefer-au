@@ -69,13 +69,13 @@ export class Blogs {
   private static async loadBlogs(): Promise<RawBlog[]> {
     // Resolve absolute path to the blog directory
     const __dirname = path.dirname(fileURLToPath(import.meta.url))
-    const dir = path.join(__dirname)
+    const dir = path.join(__dirname, 'posts')
 
     const files = await readdir(dir)
     const mdx = files.filter((file) => path.extname(file) === '.mdx')
     const data = mdx.map(async (file) => {
       try {
-        const { default: Content, meta: raw } = await import(`./${file}`)
+        const { default: Content, meta: raw } = await import(`./posts/${file}`)
         const source = await readFile(`${dir}/${file}`, 'utf8')
         const readingTimeMinutes = readingTime(source, {
           wordsPerMinute: this.WPM,

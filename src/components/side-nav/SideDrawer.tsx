@@ -4,6 +4,7 @@ import {
   LinkedinLogo,
 } from '@phosphor-icons/react/dist/ssr'
 
+import { SideAnchorLinks } from './SideAnchorLinks'
 import { SideNavLinks } from './SideNavLinks'
 type SideDrawerProps = {
   scrollRef: React.RefObject<HTMLDivElement | null>
@@ -27,6 +28,10 @@ export const SideDrawer = ({
           DJK_
         </h2>
         <SideNavLinks
+          surface="bg-base-300"
+          closeSideDrawer={() => setDrawerOpen(!drawerOpen)}
+        />
+        <SideAnchorLinks
           surface="bg-base-300"
           scrollRef={scrollRef}
           closeSideDrawer={() => setDrawerOpen(!drawerOpen)}

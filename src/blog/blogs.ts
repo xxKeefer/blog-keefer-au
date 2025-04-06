@@ -87,6 +87,8 @@ export class Blogs {
           return null
         }
 
+        if (meta.draft && process.env.NODE_ENV === 'production') return null
+
         return { meta, Content }
       } catch (error) {
         console.error(`Failed to import ${file}:`, error)

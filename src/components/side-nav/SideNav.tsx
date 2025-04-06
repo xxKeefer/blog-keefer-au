@@ -28,7 +28,7 @@ export const SideNav = ({ children }: Props) => {
         <SidePanel scrollRef={scrollRef} />
         <div
           ref={scrollRef}
-          className="max-w-full overflow-y-scroll pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)] xl:w-full"
+          className="w-full overflow-y-auto pb-8 sm:max-w-[calc(100%-30px)] sm:pb-0 lg:max-w-[calc(100%-300px)] xl:w-full"
         >
           {children}
         </div>

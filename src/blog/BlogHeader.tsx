@@ -23,6 +23,7 @@ const BlogHeader = ({ meta, children }: Props) => {
     tags,
     author,
     updatedDate,
+    draft,
   } = meta
   const date = format(updatedDate ?? publishedDate, 'iii, ii MMM yyyy')
   const seconds = mins % 1
@@ -30,6 +31,11 @@ const BlogHeader = ({ meta, children }: Props) => {
   const readTime = `~ ${minutes}m ${minutesToSeconds(seconds)}s`
   return (
     <main>
+      {draft && (
+        <div className="bg-warning sticky top-0 w-full p-1 text-center font-black capitalize">
+          this post is a draft
+        </div>
+      )}
       <div className="bg-base-300">
         <div className="prose md:prose-2xl max-w-(--breakpoint-lg) p-4 pt-8 sm:p-8 md:px-24 md:pt-16 md:pb-8 lg:mx-auto">
           <div className="flex-col place-items-start">

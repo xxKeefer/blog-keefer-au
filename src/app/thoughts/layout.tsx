@@ -5,5 +5,5 @@ export default function ThoughtsLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <SideNav links={[]}>{children}</SideNav>
+  return <SideNav>{children}</SideNav>
 }

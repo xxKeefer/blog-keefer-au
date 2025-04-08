@@ -1,5 +1,6 @@
 import type { MDXComponents } from 'mdx/types'
 
+import { CodeBlock } from './blog/CodeBlock'
 import { Heading } from './blog/Heading'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -10,6 +11,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ children }) => <Heading level="h4">{children}</Heading>,
     h5: ({ children }) => <Heading level="h5">{children}</Heading>,
     h6: ({ children }) => <Heading level="h6">{children}</Heading>,
+    pre: ({ children }) => {
+      const content = children.props.children
+      const lang = children.props.className.split('language-')[1]
+      return <CodeBlock lang={lang}>{content}</CodeBlock>
+    },
     ...components,
   }
 }

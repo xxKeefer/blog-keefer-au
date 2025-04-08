@@ -144,7 +144,7 @@ export class Blogs {
 
     return {
       applicationName: 'keefer.au',
-      title: `${blog.title} | DJK`,
+      title: `${blog.title} // DJK`,
       description: blog.description,
       authors,
       creator: blog.author ?? this.default_author,

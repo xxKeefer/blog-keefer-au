@@ -1,9 +1,17 @@
+"use client"
+import {Demo} from "~/demos/Demo"
+import {ButtonGizmo} from "~/demos/gizmos"
+
 export const meta = {
   title: "Test Page for Dev",
     description: "How do the headings look?",
     tags: ["testing", "development", "mdx", "nextjs"],
     publishedDate: "2025-04-06",
     draft:true
+};
+
+export const components = {
+  ButtonGizmo, // This makes ButtonGizmo available to MDX’s runtime
 };
 
 # Lorem ipsum
@@ -19,59 +27,23 @@ Sed suscipit scelerisque orci sed scelerisque. Aenean blandit
 facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
 venenatis luctus. Etiam lobortis libero dui, in consectetur
 risus finibus non. dolor
-## consectetur adipiscing
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-ullamcorper turpis ante, in faucibus nibh blandit et. Class
-aptent taciti sociosqu ad litora torquent per conubia nostra,
-per inceptos himenaeos. Pellentesque sit amet erat at magna
-feugiat tristique eget id metus. Phasellus odio lectus,
-condimentum at placerat non, pharetra quis felis. Ut id odio
-libero. Nam hendrerit erat ac dolor ultricies, in laoreet eros
-luctus. Sed convallis metus bibendum tellus posuere placerat.
-Sed suscipit scelerisque orci sed scelerisque. Aenean blandit
-facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
-venenatis luctus. Etiam lobortis libero dui, in consectetur
-risus finibus non.
-### in faucibus
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-ullamcorper turpis ante, in faucibus nibh blandit et. Class
-aptent taciti sociosqu ad litora torquent per conubia nostra,
-per inceptos himenaeos. Pellentesque sit amet erat at magna
-feugiat tristique eget id metus. Phasellus odio lectus,
-condimentum at placerat non, pharetra quis felis. Ut id odio
-libero. Nam hendrerit erat ac dolor ultricies, in laoreet eros
-luctus. Sed convallis metus bibendum tellus posuere placerat.
-Sed suscipit scelerisque orci sed scelerisque. Aenean blandit
-facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
-venenatis luctus. Etiam lobortis libero dui, in consectetur
-risus finibus non.
-### ad litora
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-ullamcorper turpis ante, in faucibus nibh blandit et. Class
-aptent taciti sociosqu ad litora torquent per conubia nostra,
-per inceptos himenaeos. Pellentesque sit amet erat at magna
-feugiat tristique eget id metus. Phasellus odio lectus,
-condimentum at placerat non, pharetra quis felis. Ut id odio
-libero. Nam hendrerit erat ac dolor ultricies, in laoreet eros
-luctus. Sed convallis metus bibendum tellus posuere placerat.
-Sed suscipit scelerisque orci sed scelerisque. Aenean blandit
-facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
-venenatis luctus. Etiam lobortis libero dui, in consectetur
-risus finibus non.
-## Pellentesque sit
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-ullamcorper turpis ante, in faucibus nibh blandit et. Class
-aptent taciti sociosqu ad litora torquent per conubia nostra,
-per inceptos himenaeos. Pellentesque sit amet erat at magna
-feugiat tristique eget id metus. Phasellus odio lectus,
-condimentum at placerat non, pharetra quis felis. Ut id odio
-libero. Nam hendrerit erat ac dolor ultricies, in laoreet eros
-luctus. Sed convallis metus bibendum tellus posuere placerat.
-Sed suscipit scelerisque orci sed scelerisque. Aenean blandit
-facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
-venenatis luctus. Etiam lobortis libero dui, in consectetur
-risus finibus non.
-### id metus
+
+<div>{meta.title}</div>
+
+<Demo
+  title="Demo: Toggle Me"
+  initialState={{ label: 'Click me', disabled: false }}
+  controls={[
+    { type: 'text', name: 'label' },
+    { type: 'boolean', name: 'disabled' },
+  ]}
+>
+  {({ label, disabled }) => (
+    <ButtonGizmo label={label} disabled={disabled}/>
+  )}
+</Demo>
+
+## id metus
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
 ullamcorper turpis ante, in faucibus nibh blandit et. Class
 aptent taciti sociosqu ad litora torquent per conubia nostra,

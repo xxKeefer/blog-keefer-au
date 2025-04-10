@@ -1,5 +1,7 @@
 import type { MDXComponents } from 'mdx/types'
 
+import * as gizmos from '~/demos/gizmos'
+
 import { CodeBlock } from './blog/CodeBlock'
 import { Heading } from './blog/Heading'
 
@@ -16,6 +18,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const lang = children.props.className.split('language-')[1]
       return <CodeBlock lang={lang}>{content}</CodeBlock>
     },
+    ...gizmos,
     ...components,
   }
 }

@@ -1,10 +1,10 @@
 // import Link from 'next/link'
 
 import { BlogCard } from '~/blog/BlogCard'
-import { Blogs } from '~/blog/blogs'
+import { Blog } from '~/blog/blog'
 
 export default async function Page() {
-  const blogs = await Blogs.init()
+  const blogs = await Blog.allMeta()
 
   return (
     <div className="bg-base-200 flex min-h-screen w-full flex-col items-center">
@@ -20,7 +20,7 @@ export default async function Page() {
           <h2 className="font-display text-3xl">Just some of my thoughts...</h2>
         </div>
         <ul className="flex flex-col gap-4">
-          {blogs.posts.map(({ meta }) => {
+          {blogs.map((meta) => {
             return <BlogCard key={meta.slug} meta={meta} />
           })}
         </ul>

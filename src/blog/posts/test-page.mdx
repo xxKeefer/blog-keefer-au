@@ -1,18 +1,17 @@
-"use client"
-import {Demo} from "~/demos/Demo"
-import {ButtonGizmo} from "~/demos/gizmos"
+---
+title: Test Page for Dev
+description: How do the headings look?
+tags:
+- testing
+- development
+- mdx
+- nextjs
+publishedDate: '2025-04-06'
+draft: true
+---
 
-export const meta = {
-  title: "Test Page for Dev",
-    description: "How do the headings look?",
-    tags: ["testing", "development", "mdx", "nextjs"],
-    publishedDate: "2025-04-06",
-    draft:true
-};
+import {ButtonDemo} from "~/demos/gizmos"
 
-export const components = {
-  ButtonGizmo, // This makes ButtonGizmo available to MDX’s runtime
-};
 
 # Lorem ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -28,20 +27,8 @@ facilisis sem, et posuere lacus volutpat dignissim. Nulla tempus
 venenatis luctus. Etiam lobortis libero dui, in consectetur
 risus finibus non. dolor
 
-<div>{meta.title}</div>
 
-<Demo
-  title="Demo: Toggle Me"
-  initialState={{ label: 'Click me', disabled: false }}
-  controls={[
-    { type: 'text', name: 'label' },
-    { type: 'boolean', name: 'disabled' },
-  ]}
->
-  {({ label, disabled }) => (
-    <ButtonGizmo label={label} disabled={disabled}/>
-  )}
-</Demo>
+<ButtonDemo/>
 
 ## id metus
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

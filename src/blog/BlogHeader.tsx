@@ -7,7 +7,7 @@ import {
 import { format, minutesToSeconds } from 'date-fns'
 import React, { ReactNode } from 'react'
 
-import { Meta } from './blogs'
+import { Meta } from './blog'
 
 type Props = {
   meta: Meta

@@ -3,7 +3,7 @@ import { minutesToSeconds } from 'date-fns'
 import Link from 'next/link'
 import React from 'react'
 
-import { Meta } from './blogs'
+import { Meta } from './blog'
 
 type Props = {
   meta: Meta

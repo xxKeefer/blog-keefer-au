@@ -6,7 +6,6 @@ import { Heading } from '~/blog/Heading'
 import { SideNav } from '~/components/side-nav'
 import { Event } from '~/components/timeline/Event'
 import { Timeline } from '~/components/timeline/Timeline'
-import { Demo } from '~/demos/Demo'
 const SkillsSection = dynamic(() => import('~/components/SkillsSection'), {
   ssr: false,
 })
@@ -223,22 +222,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </section>
-        <section>
-          <Demo
-            title="Demo: Toggle Me"
-            initialState={{ label: 'Click me', disabled: false }}
-            controls={[
-              { type: 'text', name: 'label' },
-              { type: 'boolean', name: 'disabled' },
-            ]}
-          >
-            {({ label, disabled }) => (
-              <button className="btn btn-primary" disabled={disabled}>
-                {label}
-              </button>
-            )}
-          </Demo>
         </section>
       </main>
     </SideNav>

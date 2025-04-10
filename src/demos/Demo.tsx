@@ -101,7 +101,7 @@ type DemoProps<T extends Record<string, unknown>> = {
   description?: string
   initialState: T
   controls?: ControlConfig[]
-  children: (state: T) => React.ReactNode
+  render: (state: T) => React.ReactNode
 }
 
 export function Demo<T extends Record<string, unknown>>({
@@ -109,7 +109,7 @@ export function Demo<T extends Record<string, unknown>>({
   description,
   initialState,
   controls = [],
-  children,
+  render,
 }: DemoProps<T>) {
   const [state, setState] = useState<T>(initialState)
 
@@ -136,7 +136,7 @@ export function Demo<T extends Record<string, unknown>>({
       {title && <h3 className="mb-1 text-lg font-semibold">{title}</h3>}
       {description && <p className="mb-3 text-sm">{description}</p>}
       <div className="mb-4">
-        <div className="rounded border p-4">{children(state)}</div>
+        <div className="rounded border p-4">{render(state)}</div>
       </div>
       {controls.length > 0 && (
         <div className="mt-2 space-y-2">

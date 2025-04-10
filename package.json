@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
-    "arktype": "^2.1.16",
     "date-fns": "^4.1.0",
     "devicons-react": "^1.4.1",
     "next": "15.2.4",

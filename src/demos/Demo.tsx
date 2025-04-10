@@ -34,26 +34,28 @@ const ControlRenderMap = new Map<
   [
     'boolean',
     ({ config, value, onChange }) => (
-      <label key={config.name} className="flex items-center gap-2 text-sm">
+      <label key={config.name} className="flex flex-col gap-2 text-sm">
+        {config.label ?? config.name}
         <input
           type="checkbox"
           checked={Boolean(value)}
           onChange={(e) => onChange(config.name, e.target.checked)}
+          className="checkbox checkbox-lg checkbox-neutral border-base-100"
         />
-        {config.label ?? config.name}
       </label>
     ),
   ],
+
   [
     'text',
     ({ config, value, onChange }) => (
-      <label key={config.name} className="flex flex-col text-sm">
+      <label key={config.name} className="flex flex-col gap-2 text-sm">
         {config.label ?? config.name}
         <input
           type="text"
           value={String(value)}
           onChange={(e) => onChange(config.name, e.target.value)}
-          className="mt-1 rounded border p-1"
+          className="input input-sm input-neutral text-base-content border-base-100"
         />
       </label>
     ),
@@ -61,13 +63,13 @@ const ControlRenderMap = new Map<
   [
     'number',
     ({ config, value, onChange }) => (
-      <label key={config.name} className="flex flex-col text-sm">
+      <label key={config.name} className="flex flex-col gap-2 text-sm">
         {config.label ?? config.name}
         <input
           type="number"
           value={Number(value)}
           onChange={(e) => onChange(config.name, Number(e.target.value))}
-          className="mt-1 rounded border p-1"
+          className="input input-sm input-neutral text-base-content border-base-100"
         />
       </label>
     ),
@@ -77,12 +79,12 @@ const ControlRenderMap = new Map<
     ({ config, value, onChange }) => {
       const selectConfig = config as Extract<ControlConfig, { type: 'select' }>
       return (
-        <label key={config.name} className="flex flex-col text-sm">
+        <label key={config.name} className="flex flex-col gap-2 text-sm">
           {selectConfig.label ?? selectConfig.name}
           <select
             value={String(value)}
             onChange={(e) => onChange(config.name, e.target.value)}
-            className="mt-1 rounded border p-1"
+            className="input input-sm input-neutral text-base-content border-base-100"
           >
             {selectConfig.options.map((opt) => (
               <option key={String(opt.value)} value={String(opt.value)}>
@@ -132,16 +134,20 @@ export function Demo<T extends Record<string, unknown>>({
   }
 
   return (
-    <div className="my-6 rounded-lg p-4 shadow-md">
-      {title && <h3 className="mb-1 text-lg font-semibold">{title}</h3>}
-      {description && <p className="mb-3 text-sm">{description}</p>}
-      <div className="mb-4">
-        <div className="rounded border p-4">{render(state)}</div>
+    <div className="not-prose bg-neutral text-accent-content flex flex-col gap-2 rounded-lg p-4 shadow-md">
+      {title && (
+        <h3 className="text-accent-content text-xl font-black">{title}</h3>
+      )}
+      {description && (
+        <p className="text-accent-content text-sm">{description}</p>
+      )}
+      <div className="bg-base-100 flex items-center justify-center rounded border p-4">
+        {render(state)}
       </div>
       {controls.length > 0 && (
-        <div className="mt-2 space-y-2">
-          <h4 className="text-sm font-medium">Controls</h4>
-          <div className="flex flex-wrap gap-4">
+        <div className="pt-4">
+          <h4 className="text-accent-content text-lg font-bold">Controls</h4>
+          <div className="flex flex-wrap items-center justify-start gap-4 font-mono">
             {controls.map(renderControl)}
           </div>
         </div>

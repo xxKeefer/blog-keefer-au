@@ -13,7 +13,6 @@ export async function CodeBlock(props: Props) {
       light: 'catppuccin-frappe',
       dark: 'catppuccin-mocha',
     },
-    // theme: 'catppuccin-mocha',
   })
 
   return <div dangerouslySetInnerHTML={{ __html: out }} />

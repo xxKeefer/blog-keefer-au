@@ -78,6 +78,10 @@
   --noise: 0;
 }
 
+.checkbox {
+  --radius-selector: 0.25rem;
+}
+
 @theme inline {
   --font-sans: var(--font-mona-sans), "sans-serif";
   --font-mono: var(--font-jetbrains), "sans-serif";

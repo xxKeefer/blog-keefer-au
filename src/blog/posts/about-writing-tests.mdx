@@ -2,188 +2,55 @@
 title: Testing in Typescript
 description: A little bit of functional programming makes testing easy
 tags:
-- testing
-- typescript
-- jest
-- vitest
+  - testing
+  - typescript
+  - jest
+  - vitest
 publishedDate: '2025-04-05'
 ---
 
-# Effective Unit Tests
-- test pure functions, if you have to mock a lot of things it's probably time to make a integration test with testing library something.
-- use `test.each` to test a lot of case repetitiously ([test.each docs](https://jestjs.io/docs/api#testeachtablename-fn-timeout))
+import { StatusTableDemo } from '~/demos/gizmos/StatusTable/StatusTableDemo'
 
-## test.each anatomy
+# A tricky state to be in
 
-Here is the typescript boiler plate:
+Recently at my job I was asked to make a cell in a table that would indicate the state of some widget documented on that particular row. Now a widget has various gizmos that all contribute to it's state and each device could be in one of many states.
 
-```ts
- test.each<{ // this generic is refered to as the CaseObj
-    case: string; // label the case with notes or what this run is enforcing
-    input: Parameters<typeof exampleFunction>;
-    output: ReturnType<typeof exampleFunction>;
-  }>([
-    {
-      // labelling with a case number makes it easy to grep for the failed test
-      case: "case #1: example", 
-      input: [...inputs], // this is the varaible your function takes in order
-      output: true, // ever the test should expect the output to be
-    },
-    {
-      case: " case #2: not example",
-      input: [...differentInputs],
-      output: false,
-    },
-    // ... this could have as many cases as you like
-    // the test name below can use printf statements to also give more context
-  ])("verify that exampleFunction fn:\n $case", ({ input, output }) => {
-    expect(exampleFunction(...input)).toEqual(output);
-  });
-});
-```
+My job to make some UI that showed an icon the represented that state. Simple enough, until you realize that the widget's state depends on multiple gizmos attached to the widget. Some of which could be in a `fail safe` mode, and if that isn't the case the states it could be in are Ok, Unknown, Fault, Failed or Disabled. And if the gizmo was Disabled, that command had come from a parent system we had no control over and that was to be considered to be Ok. Oh, also if it has an override on the gizmo then it should display an additional icon showing that, so a lot of requirements and a fairly complex piece of UI.
 
-### Using $syntax to make informative test names
-I found Jest's docs to be a little lacking when it came to describing how use it's formatting stuff to generate unique test names, to be brief the is only two things worth using `$#` to get the index of the case in the `CaseObj[]` and the `$variable` syntax to get properties off the `CaseObj`.
+<StatusTableDemo />
+
+## What goes in must come out
+
+Now the implementation of this UI is not important for what I want to share. I did not ''enjoy testing things until recently. What i want to share is a pattern i have developed for testing my code with Jest or Vitest _(their api's are essentially the same)_. Prior to this i had always found it so cumbersome to write case after case of tests. That was util I finally understood `test.each`.
 
 ```ts
-test.each([
+type GizmoData = {
+  failSafe?: boolean
+  override?: boolean
+  state: 'Ok' | 'Unknown' | 'Fault' | 'Failed' | 'Disabled'
+}
+
+test.each<{
+  // this could be a tag to make it easier to search for
+  // or even used in the description
+  _note?:string;
+  // this could be props, function parameter whatever you want
+  // or need to test a scenario
+  inputs:GizmoData;
+  // this can also be anything, the function output,
+  // variables you need to check the ui anything
+  assert:{
+    statusIcon:string
+    overrideIcon:string
+  };
+}>([
   {
-    input: [a:"one", b:2, c:[1,2,3]],
-    output: true,
+    failSafe: true,
+    override: true,
+    state: 'Fault',
   },
-])("case #$# [exampleFn fn]: returns $output \n\t\t with $input.0 and $input.1 and $input.2", ({ input, output }) => {
-    expect(exampleFunction(...input)).toEqual(output);
-  });
-});
+  ...
+], "for inputs: $inputs, the assertions are true", ({_note, inputs, assert})=>{
 
-/**
-during the test in the console the test will appear something like:
-
-case #0 [exampleFn fn]: returns true
-        with "one" and 2 and [1, 2, 3]
-*/
-```
-
-
-## Example with React and Testing Library
-The prerequisite is that all the testing libs are installed via your package manager, i.e:
-```sh
-npm i -D @testing-library/jest-dom @testing-library/react jest
-```
-
-This example is sort of trivial and if you wanted to test for user flows the assertion objects could get much more complicated
-```tsx
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-
-type ExampleProps = {
-  label: string;
-};
-
-const Example = ({ label }: ExampleProps) => {
-  return <button>{label}</button>;
-};
-
-describe("<Example/>", () => {
-  test.each([
-    {
-      props: { label: "Click Me" },
-      assertions: [
-        // note that we are making this function so they can be lazily evaluated
-        () =>
-          expect(
-            screen.getByRole("button", { name: /click me/i }),
-          ).toBeInTheDocument(),
-        // ()=> ...as many asertions as you like
-      ],
-    },
-  ])(
-    "on render <Example/> with $props complies with assertions",
-    ({ props, assertions }) => {
-      render(<Example {...props} />);
-      assertions.forEach((assertion) => assertion());
-    },
-  );
-});
-
-```
-
-### A more complicated example with React and Testing Library
-The following is based on some test i wrote recently with name that would be able to be identify specific IP redacted. This example avoid the use of an assertion array which is quite limited in scope, and just provides the test Id of the element it expects to be on screen instead. This approach is pretty flexible and you could make the `CaseObj` whatever shape it need to be to test all your assertions.
-
-```tsx
-const EXPECTED_ICON = {
-  "fail-safe": "icon-far-shield-check",
-  "ok-disabled": "ok-disabled-dash",
-  failed: "icon-fas-hexagon-xmark",
-  fault: "icon-fas-triangle-exclamation",
-  unknown: "icon-fas-square-question",
-} as const satisfies Record<WidjetStatus , string>;
-
-describe("<WidjetStatusCell/>", () => {
-  test.each<{
-    gizmos: WidjetStatus[];
-    assertions:{
-	    iconTestId: string;
-	    // ... as many as you like
-    }
-  }>([
-    {
-      gizmos: [
-        { name: "test", type: "Zoop Counter", state: "Ok" },
-        {
-          name: "test",
-          type: "Wibble Analyzer",
-          state: "Ok",
-          failSafe: true,
-        },
-      ],
-      assertions:{
-	      iconTestId: EXPECTED_ICON["fail-safe"],
-	      // ... as many as you like
-      }
-    },
-    {
-      gizmos: [
-        { name: "test", type: "Zoop Counter", state: "Ok" },
-        {
-          name: "test",
-          type: "Wibble Analyzer",
-          state: "Disabled",
-          failSafe: true,
-        },
-      ],
-      assertions:{
-	      iconTestId: EXPECTED_ICON["fail-safe"],
-      },
-    },
-    {
-      gizmos: [
-        { name: "test", type: "Zoop Counter", state: "Ok" },
-        {
-          name: "test",
-          type: "Wibble Analyzer",
-          state: "Failed",
-          failSafe: true,
-        },
-      ],
-      assertions:{
-	      iconTestId: EXPECTED_ICON["fail-safe"],
-	    },
-    },
-	 //... rest of the test cases
-  ])(
-    'component renders "$iconTestId" \n\t\twith $gizmos.0 \n\t\tand $gizmos.1',
-    ({ gizmos, assertions }) => {
-      render(
-        <ThemeProvider>
-          <WidjetStatusCell gizmos={gizmos} />
-        </ThemeProvider>,
-      );
-
-      expect(screen.getByTestId(assertions.iconTestId)).toBeInTheDocument();
-      // ... as many as you like
-      // expect(screen.getByRole(assertions.cell.role,{name: assertions.cell.name})).toBeEmptyDOMElement()
-    },
-  );
+})
 ```

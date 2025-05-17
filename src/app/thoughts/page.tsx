@@ -1,7 +1,5 @@
-// import Link from 'next/link'
-
-import { BlogCard } from '~/blog/BlogCard'
 import { Blog } from '~/blog/blog'
+import { BlogCard } from '~/blog/BlogCard'
 
 export default async function Page() {
   const blogs = await Blog.allMeta()

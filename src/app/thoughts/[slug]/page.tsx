@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
-import BlogHeader from '~/blog/BlogHeader'
 import { Blog } from '~/blog/blog'
+import BlogHeader from '~/blog/BlogHeader'
 
 type PageProps = {
   params: Promise<{ slug: string }>

@@ -3,6 +3,11 @@ import React, { JSX, useState } from 'react'
 
 // type ControlType = 'text' | 'number' | 'boolean' | 'select'
 
+type ControlGroup = {
+  title?: string
+  controls: ControlConfig[]
+}
+
 type ControlOption = { label: string; value: string | number | boolean }
 
 type ControlConfig =
@@ -15,6 +20,13 @@ type ControlConfig =
       type: 'boolean'
       name: string
       label?: string
+    }
+  | {
+      type: 'range'
+      name: string
+      label?: string
+      range: [min: number, max: number]
+      step?: number
     }
   | {
       type: 'select'
@@ -40,7 +52,7 @@ const ControlRenderMap = new Map<
           type="checkbox"
           checked={Boolean(value)}
           onChange={(e) => onChange(config.name, e.target.checked)}
-          className="checkbox checkbox-lg checkbox-neutral border-base-100"
+          className="checkbox checkbox-lg checkbox-neutral invert"
         />
       </label>
     ),
@@ -75,6 +87,29 @@ const ControlRenderMap = new Map<
     ),
   ],
   [
+    'range',
+    ({ config, value, onChange }) => {
+      const {
+        range: [min, max],
+        step,
+      } = config as Extract<ControlConfig, { type: 'range' }>
+      return (
+        <label key={config.name} className="flex flex-col gap-2 text-sm">
+          {config.label ?? config.name}
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={step ?? 1}
+            value={Number(value)}
+            onChange={(e) => onChange(config.name, Number(e.target.value))}
+            className="range range-sm range-neutral text-base-content border-base-100 invert"
+          />
+        </label>
+      )
+    },
+  ],
+  [
     'select',
     ({ config, value, onChange }) => {
       const selectConfig = config as Extract<ControlConfig, { type: 'select' }>
@@ -102,7 +137,7 @@ type DemoProps<T extends Record<string, unknown>> = {
   title?: string
   description?: string
   initialState: T
-  controls?: ControlConfig[]
+  controls?: ControlGroup[]
   render: (state: T) => React.ReactNode
 }
 
@@ -119,6 +154,17 @@ export function Demo<T extends Record<string, unknown>>({
     setState((prev) => ({ ...prev, [name]: value }))
   }
 
+  const renderControlGroup = (group: ControlGroup, index: number) => (
+    <div key={index} className="pt-4">
+      {group.title && (
+        <h4 className="text-accent-content text-lg font-bold">{group.title}</h4>
+      )}
+      <div className="flex flex-wrap items-center justify-start gap-4 font-mono">
+        {group.controls.map(renderControl)}
+      </div>
+    </div>
+  )
+
   const renderControl = (config: ControlConfig) => {
     const value = state[config.name as keyof T]
 
@@ -134,24 +180,17 @@ export function Demo<T extends Record<string, unknown>>({
   }
 
   return (
-    <div className="not-prose bg-neutral text-accent-content flex flex-col gap-2 rounded-lg p-4 shadow-md">
+    <div className="not-prose bg-neutral text-accent-content flex w-screen max-w-full flex-col gap-2 p-4 shadow-md md:rounded-lg">
       {title && (
         <h3 className="text-accent-content text-xl font-black">{title}</h3>
       )}
       {description && (
         <p className="text-accent-content text-sm">{description}</p>
       )}
-      <div className="bg-base-100 flex items-center justify-center rounded border p-4">
+      <div className="bg-base-100 block overflow-x-auto rounded border p-4">
         {render(state)}
       </div>
-      {controls.length > 0 && (
-        <div className="pt-4">
-          <h4 className="text-accent-content text-lg font-bold">Controls</h4>
-          <div className="flex flex-wrap items-center justify-start gap-4 font-mono">
-            {controls.map(renderControl)}
-          </div>
-        </div>
-      )}
+      {controls.length > 0 && controls.map(renderControlGroup)}
     </div>
   )
 }

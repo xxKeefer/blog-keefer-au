@@ -1,1 +1,1 @@
-export { ButtonDemo } from './ButtonGizmo'
+export { StatusTableDemo } from './StatusTable/StatusTableDemo'

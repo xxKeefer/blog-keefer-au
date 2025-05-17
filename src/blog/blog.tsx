@@ -7,6 +7,8 @@ import { default as readingTime } from 'reading-time'
 import { Demo } from '~/demos/Demo'
 import * as gizmos from '~/demos/gizmos'
 
+import { CodeBlock } from './CodeBlock'
+
 type Prettify<T> = {
   [K in keyof T]: T[K]
 } & {}
@@ -58,6 +60,11 @@ export class Blog {
       },
       components: {
         Demo,
+        // h1: (props) => console.log(props),
+        pre: ({ children: { props } }) => {
+          const lang = props.className.split('language-')[1]
+          return <CodeBlock lang={lang}>{props.children}</CodeBlock>
+        }, // for fenced blocks
         ...gizmos,
       },
     })

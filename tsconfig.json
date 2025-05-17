@@ -5,7 +5,6 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "exactOptionalPropertyTypes": true,
     "erasableSyntaxOnly": true,
     "noEmit": true,
     "esModuleInterop": true,

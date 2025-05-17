@@ -9,6 +9,8 @@ const config = {
   tabWidth: 2,
   semi: false,
   singleQuote: true,
+  proseWrap:"always",
+  printWidth:100,
   plugins: ['prettier-plugin-tailwindcss'],
 }
 
